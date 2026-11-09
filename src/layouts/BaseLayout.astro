@@ -8,7 +8,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = '笛声的生活小记，记录日常与所感。' } = Astro.props;
+const { title, description = '读研杂货铺，记录日常与所感。' } = Astro.props;
 const canonical = Astro.site
   ? new URL(Astro.url.pathname, Astro.site)
   : Astro.url;
