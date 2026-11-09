@@ -1,0 +1,42 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'gao的博客，记录日常与所感。' } = Astro.props;
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site)
+  : Astro.url;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta name="theme-color" content="#fdfcf9" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%238a5a3f'/%3E%3C/svg%3E"
+    />
+  </head>
+  <body>
+    <Header />
+    <main class="site-main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

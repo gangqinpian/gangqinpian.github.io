@@ -1,0 +1,71 @@
+# Pages CMS 后台配置：在 https://app.pagescms.org 登录后按这里的结构生成编辑界面。
+
+media:
+  input: public/images
+  output: /images
+  extensions:
+    - jpg
+    - jpeg
+    - png
+    - webp
+    - gif
+  rename: safe
+
+content:
+  - name: posts
+    label: 文章
+    type: collection
+    path: src/content/posts
+    format: yaml-frontmatter
+    filename:
+      template: '{year}-{month}-{day}-{title}.md'
+      field: create
+    view:
+      primary: title
+      sort: date
+      order: desc
+    fields:
+      - name: title
+        label: 标题
+        type: string
+        required: true
+      - name: date
+        label: 日期
+        type: date
+        required: true
+        options:
+          format: 'yyyy-MM-dd'
+      - name: description
+        label: 摘要（会显示在文章列表里）
+        type: text
+        options:
+          maxlength: 200
+      - name: tags
+        label: 标签（可以加多个）
+        type: string
+        list: true
+      - name: cover
+        label: 封面图（可选）
+        type: image
+      - name: draft
+        label: 存为草稿（不发布）
+        type: boolean
+        default: false
+      - name: body
+        label: 正文
+        type: rich-text
+        required: true
+
+  - name: about
+    label: 关于
+    type: file
+    path: src/content/about.md
+    format: yaml-frontmatter
+    fields:
+      - name: title
+        label: 页面标题
+        type: string
+        required: true
+      - name: body
+        label: 内容
+        type: rich-text

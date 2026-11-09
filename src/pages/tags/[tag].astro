@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostCard from '../../components/PostCard.astro';
+import { withBase } from '../../utils/url';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts', ({ data }) => !data.draft);
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
+
+  return tags.map((tag) => ({
+    params: { tag },
+    props: {
+      tag,
+      posts: posts
+        .filter((post) => post.data.tags.includes(tag))
+        .sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+    },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<BaseLayout title={`#${tag} · gao的博客`} description={`标签：${tag}`}>
+  <section class="intro">
+    <p class="eyebrow"><a href={withBase('/tags/')}>← 全部标签</a></p>
+    <h1>#{tag}</h1>
+  </section>
+
+  <ul class="post-list">
+    {
+      posts.map((post) => (
+        <PostCard post={post} />
+      ))
+    }
+  </ul>
+</BaseLayout>

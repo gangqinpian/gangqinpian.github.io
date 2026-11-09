@@ -1,0 +1,23 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../utils/date';
+import { postPath } from '../utils/url';
+import TagList from './TagList.astro';
+
+interface Props {
+  post: CollectionEntry<'posts'>;
+}
+
+const { post } = Astro.props;
+---
+
+<li class="post-card">
+  <h2 class="post-card__title">
+    <a href={postPath(post.id)}>{post.data.title}</a>
+  </h2>
+  <div class="post-card__meta">
+    <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+    <TagList tags={post.data.tags} />
+  </div>
+  {post.data.description && <p class="post-card__desc">{post.data.description}</p>}
+</li>

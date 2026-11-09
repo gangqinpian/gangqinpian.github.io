@@ -1,0 +1,42 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { withBase } from '../../utils/url';
+
+const posts = await getCollection('posts', ({ data }) => !data.draft);
+
+const counts = new Map<string, number>();
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    counts.set(tag, (counts.get(tag) ?? 0) + 1);
+  }
+}
+
+const tags = [...counts.entries()].sort(
+  (a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'zh-Hans-CN'),
+);
+---
+
+<BaseLayout title="标签 · gao的博客" description="按标签浏览文章。">
+  <section class="intro">
+    <h1>标签</h1>
+    <p>按主题浏览。</p>
+  </section>
+
+  {
+    tags.length === 0 ? (
+      <p class="empty">还没有标签。</p>
+    ) : (
+      <ul class="tag-cloud">
+        {tags.map(([tag, count]) => (
+          <li>
+            <a href={withBase(`tags/${encodeURIComponent(tag)}/`)}>
+              {tag}
+              <span class="tag-cloud__count">{count}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</BaseLayout>
