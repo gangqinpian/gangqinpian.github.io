@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 const { tag, posts } = Astro.props;
 ---
 
-<BaseLayout title={`#${tag} · 笛声的读博日记`} description={`标签：${tag}`}>
+<BaseLayout title={`#${tag} · 笛声的生活小记`} description={`标签：${tag}`}>
   <section class="intro">
     <p class="eyebrow"><a href={withBase('/tags/')}>← 全部标签</a></p>
     <h1>#{tag}</h1>
