@@ -1,7 +1,7 @@
 # Pages CMS 后台配置：在 https://app.pagescms.org 登录后按这里的结构生成编辑界面。
 
 media:
-  input: public/images
+  input: app/public/images
   output: /images
   extensions:
     - jpg
@@ -15,7 +15,7 @@ content:
   - name: posts
     label: 文章
     type: collection
-    path: src/content/posts
+    path: app/src/content/posts
     format: yaml-frontmatter
     filename:
       template: '{year}-{month}-{day}-{title}.md'
@@ -59,7 +59,7 @@ content:
   - name: about
     label: 关于
     type: file
-    path: src/content/about.md
+    path: app/src/content/about.md
     format: yaml-frontmatter
     fields:
       - name: title
