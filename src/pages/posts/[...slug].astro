@@ -15,10 +15,10 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const description = post.data.description || `${post.data.title} — gao的博客`;
+const description = post.data.description || `${post.data.title} — 笛声的读博日记`;
 ---
 
-<BaseLayout title={`${post.data.title} · gao的博客`} description={description}>
+<BaseLayout title={`${post.data.title} · 笛声的读博日记`} description={description}>
   <article class="post">
     <header class="post__header">
       <h1>{post.data.title}</h1>
